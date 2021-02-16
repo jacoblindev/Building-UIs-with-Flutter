@@ -1,8 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 
 void main() => runApp(
       ExclusiveChatApp(),
     );
+
+final ThemeData kIOSTheme = ThemeData(
+  primarySwatch: Colors.orange,
+  primaryColor: Colors.grey[100],
+  primaryColorBrightness: Brightness.light,
+);
+
+final ThemeData kDefaultTheme = ThemeData(
+  primarySwatch: Colors.indigo,
+  accentColor: Colors.orangeAccent[400],
+);
 
 String _name = 'Jacob';
 
@@ -15,6 +28,9 @@ class ExclusiveChatApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Exclusive Chat...',
+      theme: defaultTargetPlatform == TargetPlatform.iOS
+          ? kIOSTheme
+          : kDefaultTheme,
       home: ChatScreen(),
     );
   }
@@ -79,25 +95,35 @@ class _ChatScreenState extends State<ChatScreen> with TickerProviderStateMixin {
     return Scaffold(
       appBar: AppBar(
         title: Text('Exclusive Chat'),
+        elevation: Theme.of(context).platform == TargetPlatform.iOS ? 0.0 : 8.0,
       ),
-      body: Column(
-        children: [
-          Flexible(
-            child: ListView.builder(
-              padding: EdgeInsets.all(8.0),
-              reverse: true,
-              itemBuilder: (_, int index) => _messages[index],
-              itemCount: _messages.length,
+      body: Container(
+        child: Column(
+          children: [
+            Flexible(
+              child: ListView.builder(
+                padding: EdgeInsets.all(8.0),
+                reverse: true,
+                itemBuilder: (_, int index) => _messages[index],
+                itemCount: _messages.length,
+              ),
             ),
-          ),
-          Divider(height: 2.0),
-          Container(
-            decoration: BoxDecoration(
-              color: Theme.of(context).cardColor,
+            Divider(height: 2.0),
+            Container(
+              decoration: BoxDecoration(
+                color: Theme.of(context).cardColor,
+              ),
+              child: _buildTextComposer(),
             ),
-            child: _buildTextComposer(),
-          ),
-        ],
+          ],
+        ),
+        decoration: Theme.of(context).platform == TargetPlatform.iOS
+            ? BoxDecoration(
+                border: Border(
+                  top: BorderSide(color: Colors.grey[500]),
+                ),
+              )
+            : null,
       ),
     );
   }
@@ -125,12 +151,19 @@ class _ChatScreenState extends State<ChatScreen> with TickerProviderStateMixin {
             ),
             Container(
               margin: EdgeInsets.symmetric(horizontal: 4.0),
-              child: IconButton(
-                icon: Icon(Icons.send),
-                onPressed: _isComposing
-                    ? () => _handleSubmitted(_textController.text)
-                    : null,
-              ),
+              child: Theme.of(context).platform == TargetPlatform.iOS
+                  ? CupertinoButton(
+                      child: Text('Send'),
+                      onPressed: _isComposing
+                          ? () => _handleSubmitted(_textController.text)
+                          : null,
+                    )
+                  : IconButton(
+                      icon: Icon(Icons.send),
+                      onPressed: _isComposing
+                          ? () => _handleSubmitted(_textController.text)
+                          : null,
+                    ),
             ),
           ],
         ),
