@@ -27,6 +27,7 @@ class ExclusiveChatApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Exclusive Chat...',
       theme: defaultTargetPlatform == TargetPlatform.iOS
           ? kIOSTheme
