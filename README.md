@@ -1,16 +1,13 @@
-# flutter_ui
+# Flutter UI
 
-A new Flutter project.
+A deeper “first dive” than “Write your first Flutter app.” Create a chat app that includes a simple animation, and customizes the UI for iOS and Android.
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+This project is a codealone with the Flutter codelabs:
 
-A few resources to get you started if this is your first Flutter project:
+- [Building beautiful UIs with Flutter](hhttps://codelabs.developers.google.com/codelabs/flutter)
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
+For help getting started with Flutter, view
 [online documentation](https://flutter.dev/docs), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
